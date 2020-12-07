@@ -13,3 +13,4 @@ def convertArrayToBoard(arr = [], boardSize = 25):
                 yield a[i:i + n]
 
     return np.asmatrix(list(subArrays(arr, boardSize)))
+
