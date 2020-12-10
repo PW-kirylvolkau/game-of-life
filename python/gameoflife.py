@@ -10,7 +10,7 @@ def getNeighbourCount(x, y, board, boardSize = 25):
           board[(x+1)%boardSize, (y-1)%boardSize] + \
           board[(x+1)%boardSize, y] + \
           board[(x+1)%boardSize, (y+1)%boardSize]
-    return x
+    return sum
 
 
 def step(board, boardSize = 25):
