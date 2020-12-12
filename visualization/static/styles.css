@@ -1,0 +1,23 @@
+.board {
+    background-color: lightgray;
+    margin: auto;
+    width: fit-content;
+}
+
+.cell1 {
+    background-color: white;
+    margin: 2px;
+    border: 2px;
+    height: 40px;
+    width: 40px;
+    display: inline-block;
+}
+
+.cell0 {
+    margin: 2px;
+    background-color: black;
+    border: 2px;
+    height: 40px;
+    width: 40px;  
+    display: inline-block;
+}

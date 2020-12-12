@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <title>Machine Learning Game of life</title>
+</head>
+<body>
+    <h2 align = "center">Machine Learning Game of life</h2>
+    <div class = "board">
+        {% for i in range (0,400) %}
+             <div class = "cell{{list_of_cells[i]}}"></div>       
+             {% if i % 20 == 19 %}
+                <br>
+             {% endif %}
+        {% endfor %}
+    </div>
+</body>
+<script>
+    window.onload = () => {
+        setTimeout(function () {
+            window.location.reload();
+    }, 1000);
+    };
+</script>
+</html>
