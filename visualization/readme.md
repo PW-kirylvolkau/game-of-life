@@ -7,4 +7,4 @@ After doing so, go to app.py file location and execute:
 ```
 python app.py
 ```
-From now on, you should be able to open [board web visualization](http://127.0.0.1:5000/)
+From now on, you should be able to open [board web visualization](http://127.0.0.1:5000/board)
