@@ -11,3 +11,4 @@ Simulation logic is available in ```gameoflife.py```, where the function ```step
 
 Functions in ```gameoflife.py``` need to be tested.
 
+Functions are tested in ```test.py``` file. Functions from the ```generate.py``` file do not have errors and return the expected output. Functions from the ```gameoflife.py``` file do not contain errors and return the expected output. Game of life implementation has been created. 
