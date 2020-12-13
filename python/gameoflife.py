@@ -1,6 +1,3 @@
-import numpy as np
-
-
 def getNeighbourCount(x, y, board, boardSize = 25):
     sum = board[(x-1)%boardSize, (y-1)%boardSize] + \
           board[(x-1)%boardSize, y] + \
@@ -27,3 +24,7 @@ def step(board, boardSize = 25):
             elif(count == 3 and board[i,j] == 0): #reproduction
                 copy[i,j] = 1
     return copy
+
+def runSimulation(board, boardSize=25, steps=5):
+    for i in range(steps):
+        board = step(board, boardSize)
