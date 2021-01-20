@@ -8,5 +8,4 @@ matrix_list = []
 for l in lst:
     matrix_list.append(parser.create_matrix(l, size=3, file=False))
 
-print(matrix_list[21])
 

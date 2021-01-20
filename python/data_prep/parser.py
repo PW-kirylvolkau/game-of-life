@@ -7,7 +7,7 @@ class list_value:
         self.delta = delta
         self.matrix = matrix
 
-def create_matrix(row, size=25, file=true):
+def create_matrix(row, size=25, file=True):
     mat = np.zeros((size,size))
     arr_index = 2 if file else 0
     for i in range(size):
