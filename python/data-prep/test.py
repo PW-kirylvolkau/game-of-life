@@ -3,7 +3,7 @@ from neighbourhood_functions import return_neighbourhood_matrix
 
 #read_file() function parses a the test.csv file and returns a 
 #list of 50,000 values all objects which have a id property, delta property and matrix property
-lista = read_file("./data/test.csv")
+lista = read_file("../data/test.csv")
 #Some examples of matrices and ids printed out
 print(lista[0].id)
 print(lista[0].matrix)
