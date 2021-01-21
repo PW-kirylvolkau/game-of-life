@@ -1,0 +1,56 @@
+<!doctype html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="{{ url_for('static', filename='js/jquery-3.5.1.min.js') }}"></script>
+    <title>Machine Learning Game of life</title>
+</head>
+<body>
+    <h2 align = "center">Machine Learning Game of life</h2>
+    <div class = "board">
+        {% for i in range (0,400) %}
+             <div class = "cell0" id="{{i}}" style = "cursor: pointer;"></div>       
+             {% if i % 20 == 19 %}
+                <br>
+             {% endif %}
+        {% endfor %}
+    </div>
+    <button id = "savebtn" style = "float: right; margin-right: 150px; margin-top: 20px;">save</button>
+</body>
+<script>
+    var list_of_cells = [];
+    add_or_remove_cell = (e) => {
+        var id = parseInt(e.target.id);
+        var cell = document.getElementById(`${id}`);
+        if(!(list_of_cells.includes(id))) {
+            list_of_cells.push(id);
+            e.target.style.backgroundColor = "rgb(7, 135, 255)";
+        }
+        else {
+            list_of_cells = list_of_cells.filter(function(value, index, arr){ 
+                return value != id;
+            });
+            e.target.style.backgroundColor = "white";
+        }
+    }
+
+    var cells = document.getElementsByClassName('cell0');
+    for(var c in cells) {
+        cells[c].onclick = add_or_remove_cell;
+    }
+
+    var button = document.getElementById('savebtn');
+    button.onclick = () => {
+        $.ajax({
+        type : 'POST',
+        url : 'save_board',
+        contentType: 'application/json;charset=UTF-8',
+        data : JSON.stringify({list_of_cells: list_of_cells}),
+        success: function(data) {
+            window.location.href = "board"
+        }
+      });
+    }
+
+</script>
+</html>

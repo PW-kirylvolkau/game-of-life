@@ -8,19 +8,25 @@
 <body>
     <h2 align = "center">Machine Learning Game of life</h2>
     <div class = "board">
+        <h1>prediction</h1>
         {% for i in range (0,400) %}
-             <div class = "cell{{list_of_cells[i]}}"></div>       
+            {% if i in diffs %}
+            <div class = "cell{{predicted[i]}}" style = "outline:5px solid red;"></div>
+            {% else %}
+            <div class = "cell{{predicted[i]}}"></div>
+            {% endif %}   
              {% if i % 20 == 19 %}
                 <br>
              {% endif %}
         {% endfor %}
+        <br>
+        <h1>start board</h1>
+        {% for i in range (0,400) %}
+            <div class = "cell{{start[i]}}"></div>
+            {% if i % 20 == 19 %}
+            <br>
+            {% endif %}
+        {% endfor %}
     </div>
-    <button id = "evolvebtn" style = "float: right; margin-right: 150px; margin-top: 20px;">evolve</button>
 </body>
-<script>
-    var btn = document.getElementById('evolvebtn');
-    btn.onclick = () => {
-        window.location.href = 'evolve';
-    }   
-</script>
 </html>
