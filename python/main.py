@@ -22,8 +22,17 @@ print(len(delta1_matrices))
 # we don't need that much training data
 # the following loop will use the first SAMPLE SIZE matrices
 # each matrix provides for 625 data points
-
-SAMPLE_SIZE = 10
+#
+#TEST VALS
+#epochs, SampleSize: val
+#100, 10: 0.17952583730220795
+#100, 20: 0.15150538086891174
+#100, 25: 0.17131944000720978
+#100, 100: 0.14687006175518036 
+#100, 250: 0.1660555601119995 
+#100, 500: 0.14054317772388458 <----
+#100, 1000: 
+SAMPLE_SIZE = 1000
 c = 1
 flag = True
 for m in delta1_matrices:
@@ -47,3 +56,5 @@ for m in delta1_matrices:
 model = lr.get3_1Model()
 (history, trained) = lr.trainModel(model, np.asarray(train_set), np.asarray(target_set))
 lr.testModel(trained, np.asarray(test_setX), np.asarray(test_setY))
+
+

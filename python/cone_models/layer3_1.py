@@ -18,7 +18,7 @@ def trainModel(model, train_set, target_set):
     trained = model.fit(
             train_set,
             target_set,
-            epochs=2
+            epochs=100
             )
     return (trained, model);
 
