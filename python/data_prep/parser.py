@@ -16,13 +16,15 @@ def create_matrix(row, size=25, file=True):
             arr_index+=1
     return(mat)
 
-def read_file(filename):
+def read_file(filename,fsize=10000):
     with open(filename) as fname:
         reader = csv.reader(fname, delimiter=',')
-        file_list = [None] * 50000
+        file_list = [None] * fsize
         line_count = 0
         reader.__next__()
         for row in reader:
+            if line_count>=fsize:
+                break
             file_list[line_count] = list_value(row[0],row[1],create_matrix(row))
             line_count += 1
     return(file_list)
