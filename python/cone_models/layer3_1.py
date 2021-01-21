@@ -7,8 +7,8 @@ def get3_1Model():
     model = Sequential()
     model.add(Flatten(input_shape=shape))
     model.add(Dense(9, activation='relu'))
-    model.add(Dense(1, activation='relu'))
-    model.compile(loss='mean_absolute_error')
+    model.add(Dense(1, activation='sigmoid'))
+    model.compile(optimizer="sgd" ,loss='binary_crossentropy')
     print("Created a model:")
     print(model.summary())
     return model;
