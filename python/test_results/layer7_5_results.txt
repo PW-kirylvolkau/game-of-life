@@ -1,0 +1,4 @@
+
+sgd categorical crossentropy
+100 1000: 0.5232480764389038
+

@@ -12,20 +12,3 @@ def get3_1Model():
     print("Created a model:")
     print(model.summary())
     return model;
-
-
-def trainModel(model, train_set, target_set):
-    trained = model.fit(
-            train_set,
-            target_set,
-            epochs=100
-            )
-    return (trained, model);
-
-def testModel(model, testX, testY):
-    result = model.evaluate(testX, testY)
-    print(result)
-
-
-
-
