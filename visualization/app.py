@@ -3,6 +3,7 @@ import pandas as pd
 from random import randint
 from csv import reader, writer
 import numpy as np
+from prediction import accuracy,predict
 
 #### game of life implementation
 
@@ -122,18 +123,24 @@ def end_board():
 
 # predict board state 5 steps before
 @app.route('/predict')
-def predict():
-    with open('end_board.csv', 'r') as read_obj:
-        csv_reader = reader(read_obj)
-        list_of_cells = list(csv_reader)
-    list_of_cells = list_of_cells[0]
+def prediction():
+    
+    test_end = np.loadtxt(open('end_board.csv','r'), delimiter=',', dtype='int')
+    # with open('end_board.csv', 'r') as read_obj:
+    #     csv_reader = reader(read_obj)
+    #     list_of_cells = list(csv_reader)
+    # list_of_cells = list_of_cells[0]
 
     # Tutaj musisz przewidzieć predicted_cells za pomoca swojego modelu i wrzucić to do predicted_board.csv doklaadnie tak jak wyzej
     # np generate_board()
-    # 
-    # 
-    # 
-
+    prediction = predict.one_board(test_end)
+    print(prediction)
+    result = ''
+    for p in prediction:
+        result += f'{p},'
+    result = result[:len(result)-1]
+    with open('predicted_board.csv', 'w') as write_obj:
+        write_obj.write(result)
     return redirect('/final')
 
 
