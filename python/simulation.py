@@ -14,9 +14,6 @@ def runSimulation(grid,N = 20,steps = 5):
 
 
 def next_step(grid, new_grid):
-	""" next_step: Computes the grid's next step and stores it in the list
-	new_grid. The latter needing to have been previously defined.
-	"""
 	# For each column in grid...
 	for x in range(0, len(grid[0])):
 		# Iterate through each line in grid
@@ -35,10 +32,6 @@ def next_step(grid, new_grid):
 
 
 def healthy_neighbors(x, y, grid):
-	""" healthy_neighbors: Returns the number of live cells neighboring the
-	given coordinate. Given it treats the grid as a loop (making this
-	optional is a to-do) it should be able to handle most dumb calls.
-	"""
 	live_neighbors = 0
 	for i in range(-1, 2):
 		testx = (x+i) % len(grid[0])

@@ -14,11 +14,10 @@ import csv
 
 ###### Data Prediction #######
 
-def predict():
+def evaluate_prediction():
     # add arguments
     parser = argparse.ArgumentParser(description="Predict Conway's game of life initial board")
     parser.add_argument('-m', dest='model', required=True)
-    parser.add_argument('-b', dest='one_board', required=False)
     args = parser.parse_args()
     
     if not os.path.exists("models"):
@@ -28,9 +27,6 @@ def predict():
     # Parse arguments
     classNum = int(args.model)
     step = 5
-    single_board_mode = False
-    if args.one_board and int(args.one_board) == 1:
-        single_board_mode = True
 
     # read in  data, parse into training and target sets
     print("\n--------------- START PREDICTION ---------------")
@@ -38,25 +34,14 @@ def predict():
     test_start = np.loadtxt(open('Data/test_start.csv','r'), delimiter=',', dtype='int')
     test_end = np.loadtxt(open('Data/test_end.csv','r'), delimiter=',', dtype='int')
 
-    if single_board_mode == True:
-        test_start = test_start[12].reshape(1,-1)
-        test_end = test_end[12].reshape(1,-1)
-        print("----- Initial test board -----")
-        print(test_start[0].reshape(20,20))
-        print("----- Ending test board -----")
-        print(test_end[0].reshape(20,20))
-
     # Load model
     model_name = ''
     if classNum == 1:
         clf = joblib.load('./models/knc_step_5.sav')
         model_name = 'knc'
-    elif classNum == 2:
+    else:
         clf = joblib.load('./models/mlp_step_5.sav')
         model_name = 'mlp'
-    else:
-        clf = joblib.load('./models/rfc_step_5.sav')
-        model_name = 'rfc'
 
     # predict the values
     print("Model loaded. Model: ", model_name)
@@ -67,21 +52,16 @@ def predict():
     print("Prediction complete. Elasped time = %f s" %(ed_prd-st_prd))
         
     # Save prediction results
-    if single_board_mode == False:
-        outfile = 'results/prediction_' + model_name + ".txt"
-        f = open(outfile, 'w+')
-        for item in prediction:
-            f.write(','.join([str(x) for x in item]) + '\n')
-        f.close()
+    outfile = 'results/prediction_' + model_name + ".txt"
+    f = open(outfile, 'w+')
+    for item in prediction:
+        f.write(','.join([str(x) for x in item]) + '\n')
+    f.close()
 
     ### Calculating F1 score ###
     # Firstly, evolve prediction boards 5 steps forward
-    sample_size = 400
-    games = 1
-    if single_board_mode == False:
-        sample_size = prediction.shape[0]*prediction.shape[1]
-        games = prediction.shape[0]
-        
+    sample_size = prediction.shape[0]*prediction.shape[1]
+    games = prediction.shape[0]
     evolved_boards = []
     for i in range(games):
         #print(len(prediction[i]))
@@ -89,7 +69,6 @@ def predict():
         tmp = game.runSimulation(board,20,5)
         board2 = gd.convertBoardToArray(tmp)
         evolved_boards.append(board2)
-
     evolved_boards = np.asarray(evolved_boards)
 
     ##### Calculating Accuracy #####
@@ -106,21 +85,16 @@ def predict():
     print("\n-------------- F1 score ---------------")
     f1_1 = accuracy.calculate_f1_score(TP_1,TN_1,FP_1,FN_1)
     f1_0 = accuracy.calculate_f1_score(TP_0,TN_0,FP_0,FN_0)
-    print("F1-Score for Positive Class = 1: {:.3f} %".format(f1_1*100))
-    print("F1-Score for Positive Class = 0: {:.3f} %".format(f1_0*100))
+    print("F1-Score for Positive Class = 1: {:.5f}".format(f1_1))
+    print("F1-Score for Positive Class = 0: {:.5f}".format(f1_0))
 
     print("\n--- Matthews correlation coefficient---")
     MCC_1 = accuracy.calculate_MCC(TP_1,TN_1,FP_1,FN_1)
     MCC_0 = accuracy.calculate_MCC(TP_0,TN_0,FP_0,FN_0)
-    print("MCC for Positive Class = 1: {:.3f} %".format(MCC_1*100))
-    print("MCC for Positive Class = 0: {:.3f} %".format(MCC_0*100))
+    print("MCC for Positive Class = 1: {:.5f}".format(MCC_1))
+    print("MCC for Positive Class = 0: {:.5f}".format(MCC_0))
     print("")
-    # if single_board_mode == True:
-    #     print("\n----- Prediction board -----")
-    #     print(prediction[0].reshape(20,20))
-    #     print("----- Evolved prediction board -----")
-    #     print(evolved_boards[0].reshape(20,20))
-    
+
 
 if __name__ == "__main__":
-    predict()
+    evaluate_prediction()
