@@ -128,13 +128,15 @@ def predict():
         list_of_cells = list(csv_reader)
     list_of_cells = list_of_cells[0]
 
+    
     # Tutaj musisz przewidzieć predicted_cells za pomoca swojego modelu i wrzucić to do predicted_board.csv doklaadnie tak jak wyzej
     # np generate_board()
     # 
     # 
     # 
 
-    return redirect('/final')
+    return jsonify(list_of_cells)
+    # return redirect('/final')
 
 
 # display final view
