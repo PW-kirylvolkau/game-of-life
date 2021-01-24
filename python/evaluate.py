@@ -7,6 +7,7 @@ from data_prep import parser
 
 #paths to models to be joined
 model_paths = [
+        "model11_9croessentropy_100_100.model",
         "model9_7crossentropy_1000_200.model",
         "model7_5crossentropy_1000_100.model",
         "model5_3crossentropy_1000_100.model",
