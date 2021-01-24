@@ -15,10 +15,11 @@ def runPrediction(board, models, size):
             input_neigh = tf.expand_dims(input_neigh, axis=0)
             counter = 1
             for model in models:
-                print("Predicting Model ", counter)
                 input_neigh = model(input_neigh)
+                if counter == 1:
+                    print(input_neigh)
                 counter = counter + 1
-            predicted[i,j] = 0 if input_neigh < 0.0159652 else 1
+            predicted[i,j] = input_neigh
     return predicted
 
 def board_to_csv(board, size, fname):
@@ -37,7 +38,7 @@ def predict(in_path = "./board.csv", out_path = "./predicted_iterative.csv"):
     board = parser.create_matrix(board_list, size=25, file=False)
     path_prefix = "./saved_models/"
     model_paths = [
-            "model11_9croessentropy_100_100.model",
+            "model11_9crossentropy_100_100.model",
             "model9_7crossentropy_1000_200.model",
             "model7_5crossentropy_1000_100.model",
             "model5_3crossentropy_1000_100.model",

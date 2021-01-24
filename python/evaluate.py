@@ -1,13 +1,12 @@
 from tensorflow import keras
 from data_prep import neighbourhood as nb
-from predict import runPrediction
+from predict import runPrediction, board_to_csv
 from numpy import genfromtxt
 from data_prep import parser
-                    
 
 #paths to models to be joined
 model_paths = [
-        "model11_9croessentropy_100_100.model",
+        "model11_9crossentropy_100_100.model",
         "model9_7crossentropy_1000_200.model",
         "model7_5crossentropy_1000_100.model",
         "model5_3crossentropy_1000_100.model",
@@ -38,7 +37,8 @@ board = parser.create_matrix(board_list, size=25, file=False)
 print("Loaded board.")
 print("Running Prediction...")
 predicted = runPrediction(board, models, 25)
-#TODO saving the prediction to a file
+print(predicted)
+board_to_csv(predicted, 25, save_path)
 print("Prediction over data saved to: ", save_path)
 
 

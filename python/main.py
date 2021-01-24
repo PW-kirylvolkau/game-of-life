@@ -21,8 +21,8 @@ test_setY = [];
 
 print(len(delta1_matrices))
 
-SAMPLE_SIZE = 100
-EPOCH_COUNT = 100
+SAMPLE_SIZE = 500
+EPOCH_COUNT = 20
 INPUT_DIM = 11 #change for models
 OUTPUT_DIM = 9 #change for models
 
@@ -58,7 +58,7 @@ start_time = time.time()
 (history, trained) = training.trainModel(model, np.asarray(train_set), np.asarray(target_set), EPOCH_COUNT, True)
 print("Training took:", time.time() - start_time)
 training.testModel(trained, np.asarray(test_setX), np.asarray(test_setY), True)
-model_path = 'saved_models/model11_9crossentropy_100_100.model'
+model_path = 'saved_models/model11_9mae_500_20.model'
 trained.save(model_path)
 print("Model Saved to:", model_path)
 
