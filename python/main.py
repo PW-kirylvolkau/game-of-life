@@ -6,7 +6,7 @@ from keras.layers import Activation, Dropout, Dense
 from data_prep import neighbourhood as nb
 from data_prep import train_parser as tp
 
-from cone_models import layer9_7 as lr #change for models
+from cone_models import layer11_9 as lr #change for models
 from cone_models import training
 import time
 
@@ -21,10 +21,10 @@ test_setY = [];
 
 print(len(delta1_matrices))
 
-SAMPLE_SIZE = 10
-EPOCH_COUNT = 10
-INPUT_DIM = 9 #change for models
-OUTPUT_DIM = 7 #change for models
+SAMPLE_SIZE = 100
+EPOCH_COUNT = 100
+INPUT_DIM = 11 #change for models
+OUTPUT_DIM = 9 #change for models
 
 c = 1 #counter for splitting data set into training and testing data
 flag = True
@@ -52,13 +52,13 @@ for m in delta1_matrices:
         if c == 2 * SAMPLE_SIZE:
             break
 
-model = lr.get9_7Model() #change for models
+model = lr.get11_9Model() #change for models
 print("Starting Training...")
 start_time = time.time()
 (history, trained) = training.trainModel(model, np.asarray(train_set), np.asarray(target_set), EPOCH_COUNT, True)
 print("Training took:", time.time() - start_time)
 training.testModel(trained, np.asarray(test_setX), np.asarray(test_setY), True)
-model_path = 'saved_models/model9_7crossentropy_10_10.model'
+model_path = 'saved_models/model11_9crossentropy_100_100.model'
 trained.save(model_path)
 print("Model Saved to:", model_path)
 
