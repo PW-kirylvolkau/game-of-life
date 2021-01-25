@@ -14,13 +14,9 @@ def runSimulation(grid,N = 20,steps = 5):
 
 
 def next_step(grid, new_grid):
-	# For each column in grid...
 	for x in range(0, len(grid[0])):
-		# Iterate through each line in grid
 		for y in range(0, len(grid)):
-			# Count live cells around (x, y)
 			live_neighbors = healthy_neighbors(x, y, grid)
-			# Apply Game of Life's rules
 			if grid[y][x]:
 				if live_neighbors < 2 or live_neighbors > 3:
 					new_grid[y][x] = 0

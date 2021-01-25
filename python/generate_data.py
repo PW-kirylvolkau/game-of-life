@@ -9,12 +9,14 @@ ON = 1
 OFF = 0
 vals = [ON, OFF]
 
+# Generating functions
 def randomGrid(N):
     return np.random.choice(vals, N*N, p=[0.15, 0.85]).reshape(N, N)
 
 def generateBoardArray(boardSize = 20):
     return np.asarray([random.randint(0,1) for _ in range(boardSize**2)])
 
+# Converting functions
 def convertBoardToArray(board = np.matrix([])):
     return board.flatten()
 
@@ -29,7 +31,7 @@ def createTestFiles(boardSize = 20, n = 100, steps = 5):
     endfile = "./Data/test_end.csv"
     fend = open(endfile, "w+")
     for i in range(n):
-        # Starting board
+        # Starting board - evolve random grid 5 steps to be more "probable"
         board = randomGrid(boardSize)
         board = game.runSimulation(board,20,steps)
         startboard = convertBoardToArray(board)

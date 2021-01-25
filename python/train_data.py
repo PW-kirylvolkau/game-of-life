@@ -1,6 +1,5 @@
 import numpy as np
 import joblib as joblib
-from sklearn.ensemble import RandomForestClassifier 
 from sklearn.neighbors import KNeighborsClassifier  
 from sklearn.neural_network import MLPClassifier
 from sklearn import metrics
@@ -50,18 +49,14 @@ def train_models():
     elif classNum == 2:
         clf = MLPClassifier(max_iter=1000)
         model_name = 'mlp'
-    else:
-        clf = RandomForestClassifier(n_estimators=100, n_jobs=1)
-        model_name = 'rfc'
 
     print("\nRunnning the fit for step size = {0:d}, model: {}".format(step,model_name))
     st_clf = time.time()
-    #clf = MLPClassifier(max_iter=1000, random_state=1)
     clf.fit(train_end, train_start)
     ed_clf = time.time()
     print("Fit complete. elapsed time = %f s" %(ed_clf-st_clf))
     
-    # save the clf
+    # Save the trained model
     print("Saving the model for step size = %i" %(step))
     savedir = 'models' 
     if not os.path.exists(savedir):

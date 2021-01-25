@@ -64,7 +64,6 @@ def evaluate_prediction():
     games = prediction.shape[0]
     evolved_boards = []
     for i in range(games):
-        #print(len(prediction[i]))
         board = gd.convertArrayToBoard(prediction[i])
         tmp = game.runSimulation(board,20,5)
         board2 = gd.convertBoardToArray(tmp)
@@ -72,7 +71,6 @@ def evaluate_prediction():
     evolved_boards = np.asarray(evolved_boards)
 
     ##### Calculating Accuracy #####
-    # F1 score is unsymmetric between positive and negative cases !
     (TP_1,TN_1,FP_1,FN_1) = accuracy.calculate_confusion_matrix(test_end,evolved_boards,1,0)
     (TP_0,TN_0,FP_0,FN_0) = accuracy.calculate_confusion_matrix(test_end,evolved_boards,0,1)
 

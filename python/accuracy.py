@@ -23,7 +23,6 @@ def calculate_f1_score(TP, TN, FP, FN, weight=1):
         return 0
     precision = TP / (TP + FP)
     recall = TP / (TP + FN)
-    #print("TP: {} | FP: {} | FN: | {}".format(TP, FP, FN))
     f1 = (1 + weight**2) * ((precision * recall)/((weight**2 * precision) + recall))
     return f1
 
