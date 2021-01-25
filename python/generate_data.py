@@ -31,6 +31,7 @@ def createTestFiles(boardSize = 20, n = 100, steps = 5):
     for i in range(n):
         # Starting board
         board = randomGrid(boardSize)
+        board = game.runSimulation(board,20,steps)
         startboard = convertBoardToArray(board)
         line = ''
         for c in startboard:
