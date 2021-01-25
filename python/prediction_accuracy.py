@@ -17,8 +17,6 @@ def calc_accuracy_stats(board, prediction, size, steps=5):
     evolved_prediction = prediction
     for i in range(steps):
         evolved_prediction = gameoflife.step(prediction,size)
-    print(board)
-    print(prediction)
     for i in range(size):
         for j in range(size):
             confusion_m = value_classifer(board[i,j],evolved_prediction[i,j],confusion_m)

@@ -4,6 +4,8 @@ from predict import runPrediction, board_to_csv
 from simulation import fileio
 from numpy import genfromtxt
 from data_prep import parser
+from data_prep import board_to_csv as bcsv
+import run_accuracy as runacc
 
 #paths to models to be joined
 model_paths = [
@@ -26,21 +28,29 @@ print("Load custom board for prediction (default ./board.csv)? (y/N)")
 opt = input();
 
 path = "./board.csv"
-save_path = "./predicted_iterative.csv"
+save_path = "./predicted_boards.csv"
 
 if opt == 'y':
     print("Please specify path for the board:")
     path = input()
-    
-print("Loading board: ", path)
-board_list = genfromtxt(path, dtype=int, delimiter=',')
-board = parser.create_matrix(board_list, size=25, file=False)
-print("Loaded board.")
-print("Running Prediction...")
-predicted = runPrediction(board, models, 25)
-print(predicted)
-board_to_csv(predicted, 25, save_path)
+
+board_list = parser.read_file(path,10,False)
+predicted_list = [None] * 10
+for i in range(10):
+    print("Loading board ",i+1,": ", path)
+    board = board_list[i].matrix
+    print(board)
+    print("Loaded board.")
+    print("Running Prediction...")
+    predicted = runPrediction(board, models, 25)
+    predicted = predicted.astype(int)
+    print(predicted)
+    predicted_list[i] = predicted
+bcsv.boards_to_csv(predicted_list, save_path,10,25)
 print("Prediction over data saved to: ", save_path)
+
+print("Running accuracy functions")
+runacc.run_board_accuracy("./start_boards.csv",save_path,10,False)
 
 
 
