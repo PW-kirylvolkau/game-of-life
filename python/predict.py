@@ -4,6 +4,24 @@ from tensorflow import keras
 from data_prep import neighbourhood as nb
 import csv
 
+def normalize_tensor(tensorobject):
+    tensor_array = tensorobject.numpy()
+    #print(tensor_array)
+    for i in range(tensorobject.shape[0]):
+        for j in range(tensorobject.shape[1]):
+            for k in range(tensorobject.shape[2]):
+                for l in range(tensorobject.shape[3]):
+                    if tensor_array[i][j][k][l] < 0.01:
+                        tensor_array[i][j][k][l] = 0
+                    else:
+                        tensor_array[i][j][k][l] = 1
+    #print(tensor_array)
+    modified_tensor = tf.convert_to_tensor(tensor_array, dtype=tf.int32)
+    return modified_tensor
+
+
+
+
 def runPrediction(board, models, size):
     predicted = np.zeros((size,size))
     for i in range(size):
@@ -17,7 +35,7 @@ def runPrediction(board, models, size):
             for model in models:
                 input_neigh = model(input_neigh)
                 if counter == 1:
-                    print(input_neigh)
+                    input_neigh = normalize_tensor(input_neigh)
                 counter = counter + 1
             predicted[i,j] = input_neigh
     return predicted

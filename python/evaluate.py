@@ -1,6 +1,7 @@
 from tensorflow import keras
 from data_prep import neighbourhood as nb
 from predict import runPrediction, board_to_csv
+from simulation import fileio
 from numpy import genfromtxt
 from data_prep import parser
 

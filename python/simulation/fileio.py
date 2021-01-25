@@ -1,4 +1,4 @@
-import generate as g
+from simulation import generate as g
 import numpy as np
 
 def createTestFile(boardSize=25, n=10, filename="./data.csv"):
