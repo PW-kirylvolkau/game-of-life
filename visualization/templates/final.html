@@ -38,6 +38,17 @@
                     <br>
                 {% endif %}
             {% endfor %}
+            <h1>iterative model prediciton</h1>
+            {% for i in range (0,400) %}
+                {% if i in diffs[4] %}
+                <div class = "cell{{predicted3[i]}}" style = "outline:5px solid red;"></div>
+                {% else %}
+                <div class = "cell{{predicted3[i]}}"></div>
+                {% endif %}   
+                {% if i % 20 == 19 %}
+                    <br>
+                {% endif %}
+            {% endfor %}
         </div>
         <div class="board">
             <h1>evolution of start board</h1>
@@ -69,6 +80,17 @@
                     <br>
                 {% endif %}
             {% endfor %}
+            <h1>evolution of iterative model prediction</h1>
+            {% for i in range (0,400) %}
+                {% if i in diffs[5] %}
+                <div class = "cell{{prediction_evolution3[i]}}" style = "outline:5px solid red;"></div>
+                {% else %}
+                <div class = "cell{{prediction_evolution3[i]}}"></div>
+                {% endif %}   
+                {% if i % 20 == 19 %}
+                    <br>
+                {% endif %}
+            {% endfor %}
         </div>
         <div style="margin-left: auto; margin-right: auto;">
             <h1>Summary</h1>
@@ -81,6 +103,11 @@
             <h3>F1-Score for Positive Class = 0 for K-neigbors classifier: {{ acc2[1]|round(4) }}</h3>
             <h3>MCC for Positive Class = 1 for K-neigbors classifier: {{ acc2[2]|round(4) }}</h3>
             <h3>MCC for Positive Class = 0 for K-neigbors classifier: {{ acc2[3]|round(4) }}</h3>
+            <hr>
+            <h3>F1-Score for Positive Class = 1 for iterative model: {{ acc3[0]|round(4) }}</h3>
+            <h3>F1-Score for Positive Class = 0 for iterative model: {{ acc3[1]|round(4) }}</h3>
+            <h3>MCC for Positive Class = 1 for iterative model: {{ acc3[2]|round(4) }}</h3>
+            <h3>MCC for Positive Class = 0 for iterative model: {{ acc3[3]|round(4) }}</h3>
         </div>
         
 

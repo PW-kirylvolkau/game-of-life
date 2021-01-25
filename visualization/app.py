@@ -6,6 +6,7 @@ import numpy as np
 from prediction import accuracy,predict
 from torch import nn, optim, from_numpy, reshape, save, load
 from torch.autograd import Variable
+from predict import predict2
 
 
 ####
@@ -57,7 +58,7 @@ def predict_whole():
     for i in predicted:
         result += f'{i},'
     result = result[:len(result)-1]
-    with open('predicted3.csv', 'w') as write_obj:
+    with open('predicted_board4.csv', 'w') as write_obj:
         write_obj.write(result)
 
     
@@ -244,8 +245,32 @@ def prediction():
     result = result[:len(result)-1]
     with open('prediction_evolution2.csv', 'w') as write_obj:
         write_obj.write(result)
+    # # # #
+    predict2()
+    with open('predicted_board3.csv', 'r') as read_obj:
+        csv_reader = reader(read_obj)
+        list_of_cells = list(csv_reader)
+    list_of_cells = list_of_cells[0]
+    list_2d = []
+    row = []
+    for i in range(0,400):
+        row.append(int(float(list_of_cells[i])))
+        if (i+1)%20 == 0:
+            list_2d.append(row)
+            row = []
+    list_2d = np.array(list_2d)
+    for i in range(0,5):
+        list_2d = step(list_2d, 20)
 
-
+    result = ''
+    for i in list_2d:
+        for j in i:
+            result += f'{j},'
+    result = result[:len(result)-1]
+    with open('prediction_evolution3.csv', 'w') as write_obj:
+        write_obj.write(result)
+    # # #
+    predict_whole()
     return redirect('/final')
 
 
@@ -276,8 +301,21 @@ def final():
         csv_reader = reader(read_obj)
         list_of_cells = list(csv_reader)
     prediction_evolution2 = list_of_cells[0]
+    with open('predicted_board3.csv', 'r') as read_obj:
+        csv_reader = reader(read_obj)
+        list_of_cells = list(csv_reader)
+    predicted3 = list_of_cells[0]
+    temp = []
+    for p in predicted3:
+        temp.append(p.replace('.0', ''))
+    predicted3=temp
+    print(predicted3)
+    with open('prediction_evolution3.csv', 'r') as read_obj:
+        csv_reader = reader(read_obj)
+        list_of_cells = list(csv_reader)
+    prediction_evolution3 = list_of_cells[0]
     # compare start and predicted board
-    diffs = [[], [], [], []]
+    diffs = [[], [], [], [], [], []]
     for i in range(0,400):
         if start[i] != predicted[i]:
             diffs[0].append(i)
@@ -287,18 +325,26 @@ def final():
             diffs[2].append(i)
         if end_board[i] != prediction_evolution2[i]:
             diffs[3].append(i)
+        if start[i] != predicted3[i]:
+            diffs[4].append(i)
+        if end_board[i] != prediction_evolution3[i]:
+            diffs[5].append(i)
     # accuracy
     end_2d = []
     predict_2d1 = []
     predict_2d2 = []
+    predict_2d3 = []
     for i in range(0,400):
         end_2d.append(int(end_board[i]))
         predict_2d1.append(int(prediction_evolution[i]))
         predict_2d2.append(int(prediction_evolution2[i]))
+        predict_2d3.append(int(prediction_evolution3[i]))
     acc1 = accuracy.accuracy_results(end_2d, predict_2d1)
     acc2 = accuracy.accuracy_results(end_2d, predict_2d2)
+    acc3 = accuracy.accuracy_results(end_2d, predict_2d3)
     return render_template('final.html', start=start, predicted=predicted, diffs=diffs, end_board=end_board, prediction_evolution=prediction_evolution,
-    predicted2=predicted2, prediction_evolution2=prediction_evolution2, acc1=acc1, acc2=acc2)
+    predicted2=predicted2, prediction_evolution2=prediction_evolution2, acc1=acc1, acc2=acc2, acc3=acc3, 
+    predicted3=predicted3, prediction_evolution3=prediction_evolution3)
 
 
 # Start
