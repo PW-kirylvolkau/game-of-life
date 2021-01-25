@@ -36,6 +36,7 @@ def runPrediction(board, models, size):
                 input_neigh = model(input_neigh)
                 if counter == 1:
                     input_neigh = normalize_tensor(input_neigh)
+                    print(input_neigh)
                 counter = counter + 1
             predicted[i,j] = input_neigh
     return predicted
