@@ -17,11 +17,3 @@ def loadTestFile(filename="./data.csv"):
     for line in f.readlines():
         boards.append(np.fromstring(line, dtype=int, sep=','))
     return boards
-
-def saveBoard(filename="./boards.csv"):
-    f = open(filename, "a")
-    line = ''
-    for c in board:
-        line = line + str(c) + ','
-    line = line[:-1] + '\n'
-    f.write(line)
