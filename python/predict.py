@@ -24,9 +24,10 @@ def runPrediction(board, models, size):
             counter = 1
             for model in models:
                 input_neigh = model(input_neigh)
-                input_neigh = normalize_tensor(input_neigh)
-                print(input_neigh)
-            predicted[i,j] = input_neigh
+                if counter != 5:
+                    input_neigh = normalize_tensor(input_neigh)
+                counter = counter + 1
+            predicted[i,j] = 0 if input_neigh < 0.5 else 1
     return predicted
 
 def board_to_csv(board, size, fname):
