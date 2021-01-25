@@ -1,1 +1,12 @@
-python/__pycache__/
+#this is dead weight in commits
+__pycache__/
+*.pyc
+
+#no need to copy the data if we add some
+*.zip
+*.csv
+*.gz
+*.tar
+
+#venv
+tensorflow_dir/
