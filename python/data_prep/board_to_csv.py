@@ -11,8 +11,3 @@ def board_to_csv(board, size, fname):
                 tmplist[arr_index] = board[i][j]
                 arr_index+=1
         writer.writerow(tmplist)
-size = 5
-#b = np.zeros((size,size),dtype=int)
-b=np.array([[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5],[1,2,3,4,5]])
-board_to_csv(b,size,'testfile.csv')
-print(b[0][0])

@@ -1,3 +1,12 @@
+.final {
+    display: flex;
+}
+
+button {
+    height: 40px;
+    margin-left: 50%;
+}
+
 .board {
     background-color: lightgray;
     margin: auto;

@@ -45,6 +45,7 @@ def calculate_MCC(TP, TN, FP, FN):
 def accuracy_results(test_data, prediction):
     ### Calculating F1 score ###
     # Firstly, evolve prediction boards 5 steps forward
+
     if not isinstance(prediction,np.ndarray) or not isinstance(test_data,np.ndarray):
         prediction = np.asarray(prediction)
         test_data = np.asarray(test_data)
@@ -88,5 +89,5 @@ def accuracy_results(test_data, prediction):
     print("MCC for Positive Class = 0: {:.3f} %".format(MCC_0*100))
     print("")
 
-    return matrix_1, matrix_0, f1_1, f1_0, MCC_1, MCC_0
+    return f1_1, f1_0, MCC_1, MCC_0
     
