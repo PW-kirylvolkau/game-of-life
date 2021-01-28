@@ -33,15 +33,19 @@ if opt == 'y':
     path = input()
     
 print("Loading board: ", path)
-board_list = genfromtxt(path, dtype=int, delimiter=',')
-board = parser.create_matrix(board_list, size=25, file=False)
-print("Loaded board.")
-print("Running Prediction...")
-predicted = runPrediction(board, models, 25)
-print(predicted)
-board_to_csv(predicted, 25, save_path)
-print("Prediction over data saved to: ", save_path)
+board_list = parser.read_file(path)
+count = len(board_list)
+predicted = [None] * count
+for i in range(count):
+    board = board_list[i].matrix
+    print("Loaded board.")
+    print("Running Prediction...")
+    predicted[i] = runPrediction(board, models, 25)
+    print(predicted[i])
+    board_to_csv(predicted[i], 25, save_path)
+    print("Prediction over data saved to: ", save_path)
 
+#Prediction Accuracy not added into the function
 
 
 
