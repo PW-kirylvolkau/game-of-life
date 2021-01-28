@@ -1,41 +1,34 @@
 import argparse
 import numpy as np
 
-################### ANOTHER APPROACH ######################
+def getNeighbourCount(x, y, board, boardSize = 25):
+    sum = board[(x-1)%boardSize, (y-1)%boardSize] + \
+          board[(x-1)%boardSize, y] + \
+          board[(x-1)%boardSize, (y+1)%boardSize] + \
+          board[x, (y-1)%boardSize] + \
+          board[x, (y+1)%boardSize] + \
+          board[(x+1)%boardSize, (y-1)%boardSize] + \
+          board[(x+1)%boardSize, y] + \
+          board[(x+1)%boardSize, (y+1)%boardSize]
+    return sum
 
-def runSimulation(grid,N = 20,steps = 5):
+
+def step(board, boardSize = 25):
+    copy = board.copy()
+    for i in range(boardSize):
+        for j in range(boardSize):
+            count = getNeighbourCount(i, j, board, boardSize)
+            if(count < 2): #underpopulation
+                copy[i,j] = 0
+            elif((count == 2 or count == 3) and board[i,j] == 1): #statis
+                copy[i,j] = 1
+            elif(count > 3): #overpopulation
+                copy[i,j] = 0
+            elif(count == 3 and board[i,j] == 0): #reproduction
+                copy[i,j] = 1
+    return copy
+
+def runSimulation(board, boardSize=20, steps=5):
     for i in range(steps):
-        new_grid = [len(grid[0])*[0] for i in range(len(grid))]
-        # Update grid
-        next_step(grid, new_grid)
-        grid, new_grid = new_grid, grid
-
-    return np.asarray(grid)
-
-
-def next_step(grid, new_grid):
-	for x in range(0, len(grid[0])):
-		for y in range(0, len(grid)):
-			live_neighbors = healthy_neighbors(x, y, grid)
-			if grid[y][x]:
-				if live_neighbors < 2 or live_neighbors > 3:
-					new_grid[y][x] = 0
-				else:
-					new_grid[y][x] = grid[y][x]
-			else:
-				if live_neighbors == 3:
-					new_grid[y][x] = 1
-
-
-def healthy_neighbors(x, y, grid):
-	live_neighbors = 0
-	for i in range(-1, 2):
-		testx = (x+i) % len(grid[0])
-		for j in range(-1, 2):
-			testy = (y+j) % len(grid)
-			if j == 0 and i == 0:
-				continue
-			if grid[testy][testx] == 1:
-				live_neighbors += 1
-	return live_neighbors
+    	board = step(board, boardSize)
 

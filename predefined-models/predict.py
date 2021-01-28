@@ -65,8 +65,8 @@ def evaluate_prediction():
     evolved_boards = []
     for i in range(games):
         board = gd.convertArrayToBoard(prediction[i])
-        tmp = game.runSimulation(board,20,5)
-        board2 = gd.convertBoardToArray(tmp)
+        game.runSimulation(board,20,5)
+        board2 = gd.convertBoardToArray(board)
         evolved_boards.append(board2)
     evolved_boards = np.asarray(evolved_boards)
 
