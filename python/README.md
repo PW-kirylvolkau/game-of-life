@@ -14,10 +14,15 @@ This file is the primary CLI for using the predictions. It will load a predifine
 ### Directory structure
 
 ```./cone_models``` Contains definitions of submodels of the iterative model.
+
 ```./data``` Directory used for data
+
 ```./data_prep``` Contains functions necessary for parsing, formulating and restructuring data, to be fed to the model.
+
 ```./saved_models``` Default directory for saving trained models.
+
 ```./simulation``` Directory for functions related to Game of Life evolution
+
 ```./test_results``` Directory with notes from various tests (may be incomplete)
 
 Files in the main directory are generally helper scripts for user interface functions, with the exception of ```predict.py```
