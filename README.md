@@ -1,5 +1,7 @@
 # Reverse Conway's Game-of-Life
 
+A deep learning model using convolutional neural networks to predict previous state of conway's game of life.
+
 ## Repository structure 
 * [/papers](https://github.com/kirylvolkau/game-of-life/tree/main/papers) - papers we found useful for this project.
 * [/predefinded-models](https://github.com/kirylvolkau/game-of-life/tree/main/predefined-models) - sklearn-models.
